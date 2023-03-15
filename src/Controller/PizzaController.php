@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Pizza;
 use App\Repository\PizzaRepository;
+use Doctrine\ORM\Repository\RepositoryFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -66,6 +67,19 @@ class PizzaController extends AbstractController
     {
        //affichage du nom de la pizza
         return new Response("nom: {$pizza->getName()}");
+    }
+
+    #[Route('/pizza/list', name: 'app_pizza_list')]
+    public function list(PizzaRepository $repository): Response
+    {
+        //var qui contiendra la liste de toutesd les pizzas de la BD
+        $pizzas = [];
+        //recupere les pizzas de la BD
+        $pizzas =$repository->findALL();
+
+         return $this->render('pizza/list.html.twig', [
+            'pizzas' => $pizzas
+        ]);
     }
 
 }
