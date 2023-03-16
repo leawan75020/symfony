@@ -11,6 +11,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PizzaController extends AbstractController
 {
-    
+    #[Route('/pizza/nouvelle', name:'app_pizza_create')]
+    public function create():Response
+    {
+        //affichage de la vue qui contient le formulaire
+        return $this->render('pizza/create.html.twig');
+    }
 
 }
