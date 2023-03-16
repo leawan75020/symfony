@@ -12,6 +12,7 @@
     <h3> {{pizza.name}} </h3>
     <p> prix: {{pizza.price}} </p>
     <a href="{{path('app_pizza_update', {id: pizza.id})}}"> Modify</a>
+    <a href="{{path('app_pizza_remove', {id: pizza.id})}}"> Delete</a>
 
   {% endfor %}
 

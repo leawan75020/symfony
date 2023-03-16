@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\BrowserKit\Request as BrowserKitRequest;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\Loader\Configurator\remove;
 
 
 class PizzaController extends AbstractController
@@ -84,8 +85,19 @@ class PizzaController extends AbstractController
         return $this->render('pizza/update.html.twig',[
              'pizza' => $pizza
         ] );
-       
+    } 
+    
+    #[Route('/pizza/{id}/delete', name:'app_pizza_remove')]
+    public function remove( int $id, PizzaRepository $repository) :Response
+    {
+        //recupere la pizza a del selon l'id 
+        $pizza = $repository->find($id);
 
+        //delete la pizza de la BD via le repo
+        $repository->remove($pizza, true);
+        //redirection vers la liste des pizzas
+       
+          return $this->redirectToRoute('app_pizza_list');
 
     }
 }
